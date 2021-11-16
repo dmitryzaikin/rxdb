@@ -10710,6 +10710,7 @@ var RxDatabaseBase = /*#__PURE__*/function () {
     this.destroyed = false;
     this.subject = new _rxjs.Subject();
     this.observable$ = this.subject.asObservable();
+    this.broadcastChannel$ = new _rxjs.Subject();
     this.name = name;
     this.storage = storage;
     this.instanceCreationOptions = instanceCreationOptions;
@@ -11337,7 +11338,6 @@ function _prepareBroadcastChannel(rxDatabase) {
     });
   }
 
-  rxDatabase.broadcastChannel$ = new _rxjs.Subject();
   rxDatabase.broadcastChannel.addEventListener('message', function (msg) {
     if (msg.storageToken !== rxDatabase.storageToken) {
       // not same storage-state
