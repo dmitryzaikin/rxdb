@@ -21,6 +21,7 @@ import type {
 } from '../types';
 
 import {
+    adapterObject,
     addRxPlugin,
     flatClone,
     PROMISE_RESOLVE_VOID
@@ -117,12 +118,12 @@ export async function spawnServer(
         throw new Error('The RxDB server plugin only works with pouchdb storage.');
     }
 
-
-    const pseudo = PouchDB.defaults({
-        adapter: storage.adapter,
-        prefix: getPrefix(db),
-        log: false
-    });
+    const adapterObj = adapterObject(this.adapter);
+    const pouchDBOptions = Object.assign(
+        { prefix: getPrefix(db), log: false },
+        adapterObj,
+    );
+    const pseudo = PouchDB.defaults(pouchDBOptions);
 
     const app = express();
     APP_OF_DB.set(db, app);
