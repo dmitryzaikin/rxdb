@@ -143,7 +143,7 @@ function _spawnServer() {
             throw new Error('The RxDB server plugin only works with pouchdb storage.');
 
           case 7:
-            adapterObj = adapterObject(this.adapter);
+            adapterObj = adapterObject(storage.adapter);
             pouchDBOptions = Object.assign({
               prefix: getPrefix(db),
               log: false
